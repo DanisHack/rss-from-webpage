@@ -3,6 +3,7 @@
 
 # RSS output from testing
 *.rss
+*.atom
 
 # ----- GitHub Python .gitignore defaults -----
 
