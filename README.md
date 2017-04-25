@@ -4,9 +4,10 @@
 
 ### How it works
 
-*RSS from Webpage* uses [requests]() to get the source page, 
-[BeautifulSoup4]() to grok the document tree and pull out the items, and 
-[feedgen]() to create the feed.
+*RSS from Webpage* uses [requests](http://python-requests.org/) to get the 
+source page, [BeautifulSoup4](https://www.crummy.com/software/BeautifulSoup/) 
+to grok the document tree and pull out the items, and 
+[feedgen](https://github.com/lkiesow/python-feedgen) to create the feed.
 
 You give it a *feed_settings* object specifying the source URL, the output file 
 name, the URL it will be published at, the CSS selector for identifying the 
@@ -62,7 +63,8 @@ There is still lots to do.
 
 **My first\* real attempt at cutting proper code!**
 
-Beyond playing with [Udacity CS-101]().
+Beyond playing with 
+[Udacity CS-101](https://classroom.udacity.com/courses/cs101/).
 
 *\*I don't count the horrendous VBScript and Windows batch file shenanigans I 
 wrote 15 years ago for server/desktop builds.
