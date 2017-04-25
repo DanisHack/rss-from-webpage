@@ -15,7 +15,8 @@ list of articles, the title and author, etc.
 
 ### But why
 
-I like RSS, I get a lot of my news via [Feedly](https://www.feedly.com/) Pro.
+I like RSS, I get a lot of my news via [Feedly](https://www.feedly.com/).
+(Support them by getting [Feedly Pro](https://www.feedly.com/i/pro/).)
 
 But you can't always find an RSS feed for the news you like.
 Some recalcitrant news sites only  have one giant feed of every single 
@@ -44,6 +45,8 @@ project. So here goes!
 ### Lots to do
 
 There is still lots to do.
+- Actually output to a web location so [Feedly](https://www.feedly.com/) can
+  pick it up.
 - Rules for extracting articles are hard coded! So it's one feed only.
   - It assumes an **A** anchor link where the HREF is what you want, and the 
     title is what's between the tags. 
