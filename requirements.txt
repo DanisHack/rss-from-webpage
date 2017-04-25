@@ -1,0 +1,8 @@
+beautifulsoup4
+feedgen
+requests
+
+# via feedgen? or hardcode?
+#   lxml
+#   python-dateutil
+#   six
