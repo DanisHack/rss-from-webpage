@@ -6,6 +6,8 @@
         description = a single P within the child. or something.)
 """
 
+# TODO: Output on the web somewhere
+# TODO: Test against RSS validator
 # TODO: don't hard code item extraction selectors - pass in somehow
 # TODO: automatically get title etc from page
 # TODO:   but allow overrides e.g. title
@@ -31,6 +33,7 @@
 # TODO: handle routes so /feed/feed_name/ works
 # TODO: or take all feed settings as URL parameters?
 # TODO: requirements.txt
+# TODO: any kind of unit test :|
 
 import collections
 
@@ -47,7 +50,7 @@ def get_articles_from_html(container_html):
 
     feed_article = collections.namedtuple('feed_article',
                                           {'link', 'title', 'description', })
-    feed_articles = set()
+    articles = set()
     for child in container_html:
         # TODO pass in criteria for choosing item, don't hard code
 
@@ -55,18 +58,18 @@ def get_articles_from_html(container_html):
         title = child.find('a').string  # TODO hardcoded
         description = child.find('p').string  # TODO hardcoded
 
-        feed_articles.add(
+        articles.add(
             feed_article(link=link, title=title, description=description))
 
-    return feed_articles
+    return articles
 
 
-def generate_rss_from_articles(feed_settings, feed_articles):
+def generate_rss_from_articles(feed_settings, articles):
     """
     Creates a FeedGenerator feed from a set of feed_entries.
     
     :param feed_settings: a feed_settings object containing 
-    :param feed_articles: 
+    :param articles: 
     :return: 
     """
 
@@ -85,12 +88,14 @@ def generate_rss_from_articles(feed_settings, feed_articles):
     # output_rss.id(UM_SOMETHING)
 
     # add each feed item
-    for tuple in feed_articles:
-        entry_being_added = output_feed.add_entry()
-        # entry_being_added.id('')
-        entry_being_added.title(tuple.title)
-        entry_being_added.description(tuple.description)
-        entry_being_added.enclosure(tuple.link, 0, 'text/html')
+    for article in articles:
+        feed_entry_added = output_feed.add_entry()
+        feed_entry_added.id(article.link) # ATOM
+        # guid for RSS?
+        feed_entry_added.link(href=article.link, rel='alternate') # ATOM
+        feed_entry_added.title(article.title)
+        feed_entry_added.description(article.description)
+        # feed_entry_added.link(article.link)
 
     return output_feed
 
@@ -107,7 +112,7 @@ def output_rss(rss, filename):
     rss.rss_file(filename)
 
 
-def rss_from_html(feed_settings):
+def rss_from_webpage(feed_settings):
     """
     TODO docstring
     :param feed_settings: 
@@ -117,8 +122,8 @@ def rss_from_html(feed_settings):
     source_page_html = requests.get(feed_settings.source_page_url).content
     soup = BeautifulSoup(source_page_html, 'html.parser')
     container_html = soup.select(feed_settings.container_CSS_selector)
-    feed_articles = get_articles_from_html(container_html)
-    rss = generate_rss_from_articles(feed_settings, feed_articles)
+    articles = get_articles_from_html(container_html)
+    rss = generate_rss_from_articles(feed_settings, articles)
     return rss
 
 
@@ -151,7 +156,7 @@ def main():
         logo_img_url='http://www.smh.com.au/content/dam/images/h/v/e/c/d/image.imgtype.columnistThumbnail.90x90.png/1408400781813.png',
         language='en')
 
-    rss = rss_from_html(this_feed_settings)
+    rss = rss_from_webpage(this_feed_settings)
     output_rss(rss, this_feed_settings.output_file)
 
 
