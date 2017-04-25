@@ -147,8 +147,8 @@ def main():
     this_feed_settings = feed_settings(
         source_page_url='http://www.smh.com.au/comment/by/Annabel-Crabb-hvecc',
         container_CSS_selector='main.main div.story__wof',
-        output_file='annabel-crabb-smh.rss',
-        output_url='http://lukemorey.com/rss/annabel-crabb-smh.rss',
+        output_file='annabel-crabb-smh.atom',
+        output_url='http://lukemorey.com/annabel-crabb-smh.atom', # TODO this should be base URL + filename
         title='Annabel Crabb SMH',
         subtitle='Annabel Crabb is a regular columnist, TV host and leading political commentator.',
         author={'name': 'Annabel Crabb'},
